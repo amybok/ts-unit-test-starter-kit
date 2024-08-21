@@ -22,10 +22,14 @@ concurrency:
 
 jobs:
   test:
+    # Run on command line
     runs-on: ubuntu-latest
     steps:
+      # Pull from repo
       - name: Checkout
+        # Standard scripts from github
         uses: actions/checkout@v4
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
@@ -36,8 +40,12 @@ jobs:
       - name: Build
         run: npm run build
       # Begin automated tests
+      - name: Test
+        run: npm run test
       # End automated tests
   deploy:
+
+    # Dont deploy until tests passed
     needs: test
     environment:
       name: github-pages
